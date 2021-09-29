@@ -1,0 +1,12 @@
+{
+    "name": "gold-notifier-bot",
+    "version": "1.0.0",
+    "description": "A Bot that tell prices of gold and when to buy and sell",
+    "main": "bot.js",
+    "author": "Kashgary",
+    "dependencies": {
+        "axios": "^0.21.4",
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "winston": "^3.3.3"
+    }
+}
