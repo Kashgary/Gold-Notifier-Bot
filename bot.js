@@ -34,7 +34,7 @@ bot.on('ready', function (evt) {
         atme = '@Kashgary#1322 \n'
         message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
         bot.sendMessage({
-            to: channelID,
+            to: '892475930839224401',
             message: atme+message
         });
 
