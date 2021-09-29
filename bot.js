@@ -24,6 +24,7 @@ var bot = new Discord.Client({
    autorun: true
 });
 bot.on('ready', function (evt) {
+    console.log('start')
     axios.request(get_gold).then(function (response) {
         prices = JSON.stringify(response.data);
         prices = JSON.parse(prices); 
@@ -37,6 +38,8 @@ bot.on('ready', function (evt) {
             to: '892475930839224401',
             message: atme+message
         });
+        console.log('result: '+atme+message)
+        console.log('end')
         process.exit(1)
     }).catch(function (error) {
         console.log(error)
