@@ -37,7 +37,7 @@ bot.on('ready', function (evt) {
             to: '892475930839224401',
             message: atme+message
         });
-
+        process.exit(1)
     }).catch(function (error) {
         console.log(error)
     });
