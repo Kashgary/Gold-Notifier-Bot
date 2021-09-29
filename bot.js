@@ -25,31 +25,31 @@ var bot = new Discord.Client({
 });
 bot.on('ready', function (evt) {
     console.log('start')
-    var atme;
-    var message;
-    axios.request(get_gold).then(function (response) {
-        prices = JSON.stringify(response.data);
-        prices = JSON.parse(prices); 
-        sarGold_price_1g = (prices['gold'] * 3.75) / 31;
-        sarGold_price_10g = sarGold_price_1g * 10;
-        sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
-        sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
-        atme = '<@209760367797075969> \n'
-        message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
-        bot.sendMessage({
-            to: '892475930839224401',
-            message: atme+message
-        })
+    // var atme;
+    // var message;
+    // axios.request(get_gold).then(function (response) {
+    //     prices = JSON.stringify(response.data);
+    //     prices = JSON.parse(prices); 
+    //     sarGold_price_1g = (prices['gold'] * 3.75) / 31;
+    //     sarGold_price_10g = sarGold_price_1g * 10;
+    //     sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
+    //     sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
+    //     atme = '<@209760367797075969> \n'
+    //     message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
+    //     bot.sendMessage({
+    //         to: '892475930839224401',
+    //         message: atme+message
+    //     })
 
    
-    }).catch(function (error) {
-        console.log(error)
-    });
-    setTimeout(function() {
-        console.log('result: '+atme+message)
-        console.log('end')
-        process.exit(1)
-      }, 2000);
+    // }).catch(function (error) {
+    //     console.log(error)
+    // });
+    // setTimeout(function() {
+    //     console.log('result: '+atme+message)
+    //     console.log('end')
+    //     process.exit(1)
+    //   }, 2000);
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
