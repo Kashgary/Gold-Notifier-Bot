@@ -24,9 +24,23 @@ var bot = new Discord.Client({
    autorun: true
 });
 bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
+    axios.request(get_gold).then(function (response) {
+        prices = JSON.stringify(response.data);
+        prices = JSON.parse(prices); 
+        sarGold_price_1g = (prices['gold'] * 3.75) / 31;
+        sarGold_price_10g = sarGold_price_1g * 10;
+        sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
+        sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
+        atme = '@Kashgary#1322 \n'
+        message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
+        bot.sendMessage({
+            to: channelID,
+            message: atme+message
+        });
+
+    }).catch(function (error) {
+        console.log(error)
+    });
 
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
