@@ -41,14 +41,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 
  function askGoldPrice(channelID) { 
-    axios.request(options).then(function (response) {
-        bot.sendMessage({
-            to: channelID,
-            message: message
-        });
-    }).catch(function (error) {
-        console.error(error);
-    });
+
     axios.request(get_gold).then(function (response) {
         prices = JSON.stringify(response.data);
         prices = JSON.parse(prices); 
@@ -57,7 +50,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
         sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
         message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
-
+        bot.sendMessage({
+            to: channelID,
+            message: message
+        });
 
     }).catch(function (error) {
         console.log(error)
