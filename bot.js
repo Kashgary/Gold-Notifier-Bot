@@ -5,9 +5,9 @@ var axios = require("axios").default;
 
 var get_gold = {
     method: 'GET',
-    url: 'https://gold-price-live.p.rapidapi.com/get_metal_prices',
+    url: 'https://live-metal-prices.p.rapidapi.com/v1/latest/XAU/SAR/GRAM',
     headers: {
-      'x-rapidapi-host': 'gold-price-live.p.rapidapi.com',
+      'x-rapidapi-host': 'live-metal-prices.p.rapidapi.com',
       'x-rapidapi-key': 'd96c2a489bmshe96b9565a74b1b8p1be0adjsn7b7fa2212542'
     }
   };
@@ -25,36 +25,9 @@ var bot = new Discord.Client({
 });
 bot.on('ready', function (evt) {
     console.log('start')
-    // var atme;
-    // var message;
-    // axios.request(get_gold).then(function (response) {
-    //     prices = JSON.stringify(response.data);
-    //     prices = JSON.parse(prices); 
-    //     sarGold_price_1g = (prices['gold'] * 3.75) / 31;
-    //     sarGold_price_10g = sarGold_price_1g * 10;
-    //     sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
-    //     sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
-    //     atme = '<@209760367797075969> \n'
-    //     message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
-    //     bot.sendMessage({
-    //         to: '892475930839224401',
-    //         message: atme+message
-    //     })
 
-   
-    // }).catch(function (error) {
-    //     console.log(error)
-    // });
-    // setTimeout(function() {
-    //     console.log('result: '+atme+message)
-    //     console.log('end')
-    //     process.exit(1)
-    //   }, 2000);
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    console.log(user);
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
@@ -68,18 +41,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 
  function askGoldPrice(channelID) { 
-    axios.request(get_gold).then(function (response) {
-        prices = JSON.stringify(response.data);
-        prices = JSON.parse(prices); 
-        sarGold_price_1g = (prices['gold'] * 3.75) / 31;
-        sarGold_price_10g = sarGold_price_1g * 10;
-        sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
-        sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
-        message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
+    axios.request(options).then(function (response) {
         bot.sendMessage({
             to: channelID,
             message: message
         });
+    }).catch(function (error) {
+        console.error(error);
+    });
+    axios.request(get_gold).then(function (response) {
+        prices = JSON.stringify(response.data);
+        prices = JSON.parse(prices); 
+        sarGold_price_1g = prices['rates']['XAU'];
+        sarGold_price_10g = sarGold_price_1g * 10;
+        sarGold_price_1g = parseFloat(sarGold_price_1g).toFixed(2);
+        sarGold_price_10g = parseFloat(sarGold_price_10g).toFixed(2);
+        message = '```'+''+sarGold_price_1g+''+' 1g - '+(sarGold_price_10g)+' 10g ```'
+
 
     }).catch(function (error) {
         console.log(error)
